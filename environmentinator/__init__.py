@@ -30,6 +30,15 @@ def ensure_module(module_name, package_name=None):
 
     If you use a lot of code under version control ensure that `.py-env` is in your `.gitignore` file.
 
+    ## Example Uses
+
+    ```python
+      import environmentinator
+      json5 = environmentinator.ensure_module('json5')
+      # equivelant to manual environment setup + "import json5"
+      my_var = json5.loads('{"not": "valid", /* json */ }')
+    ```
+
   '''
   if not isinstance(module_name, str):
     raise Exception('module_name must be a string, got {}'.format(module_name))

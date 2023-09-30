@@ -1,5 +1,11 @@
 [build-system]
-requires = []
+# Hatch is a modern, extensible Python project manager.
+# https://hatch.pypa.io/latest/
+# > python -m pip install --target=.py-env hatch
+# > PYTHONPATH=$(realpath .py-env)":$PYTHONPATH"
+# > python -m hatch.cli
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "environmentinator"
