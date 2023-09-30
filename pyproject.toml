@@ -3,7 +3,7 @@
 # https://hatch.pypa.io/latest/
 # > python -m pip install --target=.py-env hatch
 # > PYTHONPATH=$(realpath .py-env)":$PYTHONPATH"
-# > python -m hatch.cli
+# > python -c '__import__("hatch.cli").cli.main()'
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
