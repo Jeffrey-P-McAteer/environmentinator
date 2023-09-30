@@ -37,4 +37,10 @@ json5 = environmentinator.ensure_module('json5')
 ```
 
 
+# Generating Library Docs
+
+```bash
+python gen_docs.py
+
+```
 

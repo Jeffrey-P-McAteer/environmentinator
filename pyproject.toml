@@ -1,0 +1,8 @@
+[build-system]
+requires = []
+
+[project]
+name = "environmentinator"
+authors = [{name = "Jeffrey McAteer", email = "jeffrey-pydev@jmcateer.com"}]
+dynamic = ["version", "description"]
+
