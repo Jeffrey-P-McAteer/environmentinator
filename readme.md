@@ -42,6 +42,13 @@ python gen_docs.py
 
 ```
 
+# Publishing Notes
+
+```bash
+HATCH_INDEX_USER='__token__' HATCH_INDEX_AUTH=$(cat /path/to/my/pypi-token.txt) python publish.py
+
+```
+
 # Examples
 
 See `./examples/` for all examples.

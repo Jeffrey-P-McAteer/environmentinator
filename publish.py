@@ -26,3 +26,5 @@ def run_hatch(*args):
 
 run_hatch('build')
 
+run_hatch('publish')
+
