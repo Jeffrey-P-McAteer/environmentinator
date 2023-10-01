@@ -4,6 +4,7 @@ out/
 www_docs/
 .py-env
 .pyenv
+dist
 
 
 
