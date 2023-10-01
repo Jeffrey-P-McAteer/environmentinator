@@ -21,13 +21,11 @@ except:
     pip.main(['install', '--user', 'environmentinator'])
     import environmentinator
 
-# First arg is comparison; '>', '<', '>=', '<=' are valid.
-# Second arg is major version (typically 3)
-# Third arg is minor version.
-# Fourth argument is an optional list of alternative folders to
+# First arg is comparison expression; eg '==3.10', '<3.7', '>=3.8'
+# Second argument is an optional list of alternative folders to
 # search for python runtimes that could match the requested version,
 # if the current one does not match.
-environmentinator.ensure_py_version('>', 3,8, )
+environmentinator.ensure_py_version('>3.8',)
 
 
 # If json5 exists in `.pyenv` great, if not use pip to install with `--target=.pyenv`
