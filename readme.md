@@ -42,3 +42,12 @@ python gen_docs.py
 
 ```
 
+# Examples
+
+See `./examples/` for all examples.
+
+ - `example_01.py`
+
+![example_01](./examples/example_01.jpg)
+
+
