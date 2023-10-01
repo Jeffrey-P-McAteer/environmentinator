@@ -165,7 +165,6 @@ def eval_expr(expr):
     >>> eval_expr('1 + 2*3**(4^5) / (6 + -7)')
     -5.0
     """
-    print(f'expr={expr}')
     return eval_(ast.parse(expr, mode='eval').body)
 
 def eval_(node):
