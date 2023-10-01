@@ -69,9 +69,19 @@ def ensure_module(module_name, package_name=None):
   try:
     return importlib.import_module(module_name)
   except:
-    subprocess.run([
-      sys.executable, '-m', 'pip', 'install', '--target={}'.format(env_target), *(package_name.split())
-    ])
+    try:
+      import pip # prove we _have_ pip
+      subprocess.run([
+        sys.executable, '-m', 'pip', 'install', '--target={}'.format(env_target), *(package_name.split())
+      ])
+    except:
+      subprocess.run([
+        sys.executable, '-m', 'ensurepip',
+      ])
+      subprocess.run([
+        sys.executable, '-m', 'pip', 'install', '--target={}'.format(env_target), *(package_name.split())
+      ])
+
 
   return importlib.import_module(module_name)
 
