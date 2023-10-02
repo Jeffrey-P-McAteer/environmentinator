@@ -41,7 +41,13 @@ if 'y' in yn.lower():
   www_branch_folder = os.path.join(tempfile.gettempdir(), 'environmentinator-www')
   try:
     if os.path.exists(www_branch_folder):
-      shutil.rmtree(www_branch_folder)
+      try:
+        shutil.rmtree(www_branch_folder)
+      except:
+        traceback.print_exc()
+        if os.name == 'nt':
+          os.system('rmdir /S /Q "{}"'.format(www_branch_folder))
+
     os.makedirs(www_branch_folder, exist_ok=True)
     #subprocess.run([
     #  'git', 'clone', 'https://github.com/jeffrey-p-mcateer/environmentinator'
@@ -106,5 +112,10 @@ if 'y' in yn.lower():
     traceback.print_exc()
   finally:
     if not 'DEBUG' in os.environ and os.path.exists(www_branch_folder):
-      shutil.rmtree(www_branch_folder)
+      try:
+        shutil.rmtree(www_branch_folder)
+      except:
+        traceback.print_exc()
+        if os.name == 'nt':
+          os.system('rmdir /S /Q "{}"'.format(www_branch_folder))
 
