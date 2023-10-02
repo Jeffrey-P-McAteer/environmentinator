@@ -10,4 +10,7 @@ torch = environmentinator.ensure_module('torch', 'torch torchvision torchaudio -
 print(f'I have loaded torch from {torch}')
 
 
-
+import code
+vars = globals()
+vars.update(locals())
+code.interact(local=vars)
