@@ -106,7 +106,7 @@ if 'y' in yn.lower():
       traceback.print_exc()
     
     subprocess.run([
-      'git', 'push', '-f'
+      'git', 'push', '-f', 'origin', 'www'
     ])
 
   except:
