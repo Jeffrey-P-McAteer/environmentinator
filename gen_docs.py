@@ -104,9 +104,10 @@ if 'y' in yn.lower():
       ])
     except:
       traceback.print_exc()
-      subprocess.run([
-        'git', 'push'
-      ])
+    
+    subprocess.run([
+      'git', 'push', '-f'
+    ])
 
   except:
     traceback.print_exc()
