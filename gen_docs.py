@@ -105,5 +105,6 @@ if 'y' in yn.lower():
   except:
     traceback.print_exc()
   finally:
-    if False and os.path.exists(www_branch_folder):
+    if not 'DEBUG' in os.environ and os.path.exists(www_branch_folder):
       shutil.rmtree(www_branch_folder)
+
