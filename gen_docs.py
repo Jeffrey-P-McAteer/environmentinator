@@ -2,6 +2,10 @@
 import subprocess
 import os
 import sys
+import tempfile
+import traceback
+import shutil
+import distutils.dir_util
 
 sys.path.append(
   os.path.dirname(__file__)
@@ -32,3 +36,74 @@ with open(index_html_f, 'w') as fd:
 import webbrowser
 webbrowser.open('file://'+index_html_f)
 
+yn = input('Publish content to branch www? ')
+if 'y' in yn.lower():
+  www_branch_folder = os.path.join(tempfile.gettempdir(), 'environmentinator-www')
+  try:
+    if os.path.exists(www_branch_folder):
+      shutil.rmtree(www_branch_folder)
+    os.makedirs(www_branch_folder, exist_ok=True)
+    #subprocess.run([
+    #  'git', 'clone', 'https://github.com/jeffrey-p-mcateer/environmentinator'
+    #])
+    distutils.dir_util.copy_tree(
+      os.path.dirname(__file__),
+      www_branch_folder
+    )
+    print('Open {}'.format(www_branch_folder))
+    os.chdir(www_branch_folder)
+    git_branch_out = subprocess.check_output(['git', 'branch']).decode('utf-8')
+    if not 'www' in git_branch_out:
+      # create the new branch
+      subprocess.run([
+        'git', 'branch', 'www'
+      ])
+    # Checkout the www branch
+    subprocess.run([
+      'git', 'checkout', 'www'
+    ])
+    # Copy over our website files
+    shutil.copy(index_html_f, 'index.html')
+    # Remove all files from 'master', we only want index.html and the .git folder in this branch.
+    # and maybe .gitignore.
+    paths_to_keep = [
+      '.git',
+      '.gitignore',
+      'index.html'
+    ]
+    cwd_path_names = [x for x in os.listdir()]
+    for path_name in cwd_path_names:
+      if not path_name in paths_to_keep:
+        print('Removing {}'.format(path_name))
+        if os.path.isdir(path_name):
+          shutil.rmtree(path_name)
+        else:
+          os.remove(path_name)
+
+    subprocess.run([
+      'git', 'status'
+    ])
+
+    subprocess.run([
+      'git', 'add', '-A', '.'
+    ])
+
+    subprocess.run([
+      'git', 'commit', '-a', '-m', 'gen_docs.py update to www branch.'
+    ])
+
+    try:
+      subprocess.run([
+        'git', 'push', '-u', 'origin', 'www'
+      ])
+    except:
+      traceback.print_exc()
+      subprocess.run([
+        'git', 'push'
+      ])
+
+  except:
+    traceback.print_exc()
+  finally:
+    if False and os.path.exists(www_branch_folder):
+      shutil.rmtree(www_branch_folder)
