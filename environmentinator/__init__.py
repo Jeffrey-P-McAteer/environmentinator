@@ -16,6 +16,13 @@ __pdoc__ = dict()
 # Disable some functions from appearing in public docs
 __pdoc__['eval_expr'] = False
 __pdoc__['eval_'] = False
+__pdoc__['get_self_file'] = False
+
+def get_self_folder():
+  if '__name__' in globals():
+    return os.path.dirname(__file__)
+  else:
+    return os.path.abspath('')
 
 
 def ensure_module(module_name, package_name=None):
@@ -59,15 +66,15 @@ def ensure_module(module_name, package_name=None):
   vers_major = sys.version_info[0]
   vers_minor = sys.version_info[1]
 
-  callee_file = __file__
+  callee_folder = get_self_folder()
   try:
     frame = inspect.stack()[1]
     module = inspect.getmodule(frame[0])
-    callee_file = module.__file__
+    callee_folder = os.path.dirname(module.__file__)
   except:
     pass
 
-  env_target = os.path.join(os.path.dirname(callee_file), '.py-env', '{}_{}'.format(vers_major, vers_minor))
+  env_target = os.path.join(callee_folder, '.py-env', '{}_{}'.format(vers_major, vers_minor))
   os.makedirs(env_target, mode=0o777, exist_ok=True)
   if not env_target in sys.path:
     sys.path.append(env_target)
@@ -98,15 +105,15 @@ def delete_all_environmentinator_modules():
   vers_major = sys.version_info[0]
   vers_minor = sys.version_info[1]
 
-  callee_file = __file__
+  callee_folder = get_self_folder()
   try:
     frame = inspect.stack()[1]
     module = inspect.getmodule(frame[0])
-    callee_file = module.__file__
+    callee_folder = os.path.dirname(module.__file__)
   except:
     pass
 
-  env_target = os.path.join(os.path.dirname(callee_file), '.py-env', '{}_{}'.format(vers_major, vers_minor))
+  env_target = os.path.join(os.path.dirname(callee_folder), '.py-env', '{}_{}'.format(vers_major, vers_minor))
   if os.path.exists(env_target):
     shutil.rmtree(env_target)
 
