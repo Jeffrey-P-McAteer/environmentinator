@@ -12,6 +12,12 @@ import inspect
 import shutil
 import time
 
+__pdoc__ = dict()
+# Disable some functions from appearing in public docs
+__pdoc__['eval_expr'] = False
+__pdoc__['eval_'] = False
+
+
 def ensure_module(module_name, package_name=None):
   '''
     Returns the imported module `module_name` if it exists,
