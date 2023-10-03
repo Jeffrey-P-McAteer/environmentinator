@@ -16,7 +16,7 @@ __pdoc__ = dict()
 # Disable some functions from appearing in public docs
 __pdoc__['eval_expr'] = False
 __pdoc__['eval_'] = False
-__pdoc__['get_self_file'] = False
+__pdoc__['get_self_folder'] = False
 
 def get_self_folder():
   if '__name__' in globals():
